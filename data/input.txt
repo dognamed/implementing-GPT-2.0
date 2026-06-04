@@ -1,0 +1,11 @@
+GPT is a transformer language model.
+It reads tokens from left to right.
+At every step it predicts the next token.
+
+Self attention lets each token look back at earlier tokens.
+A causal mask hides future tokens.
+Residual connections help information flow through many layers.
+Layer normalization keeps activations stable.
+
+This small dataset is only for checking that the code runs.
+Replace it with a larger text file to train a more interesting model.
