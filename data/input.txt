@@ -1,11 +1,82 @@
-GPT is a transformer language model.
-It reads tokens from left to right.
-At every step it predicts the next token.
+GPT is a transformer-based language model.
+It learns to predict the next token from previous tokens.
+The goal of training is simple: given a sequence of tokens, predict the following token.
+This task is called autoregressive language modeling.
 
-Self attention lets each token look back at earlier tokens.
-A causal mask hides future tokens.
-Residual connections help information flow through many layers.
-Layer normalization keeps activations stable.
+A transformer model starts with token embeddings.
+Each token id is converted into a vector.
+The model also uses positional embeddings.
+Positional embeddings tell the model where each token appears in the sequence.
 
-This small dataset is only for checking that the code runs.
-Replace it with a larger text file to train a more interesting model.
+The most important part of GPT is masked self-attention.
+Self-attention lets each token look at other tokens in the same sequence.
+In GPT, a token can only look at itself and previous tokens.
+It cannot look at future tokens.
+This rule is enforced by a causal mask.
+
+In attention, the model creates queries, keys, and values.
+Queries ask what information is needed.
+Keys describe what information each token contains.
+Values carry the actual information.
+The attention score is computed by comparing queries and keys.
+The values are mixed according to the attention weights.
+
+Multi-head attention uses several attention heads at the same time.
+Each head can learn a different pattern.
+One head may focus on nearby words.
+Another head may focus on sentence structure.
+Another head may focus on repeated phrases.
+The outputs of all heads are combined with a projection layer.
+
+A transformer block contains attention, layer normalization, residual connections, and a feed-forward network.
+Layer normalization helps keep activations stable.
+Residual connections help information flow through deep networks.
+The feed-forward network applies a nonlinear transformation to each token.
+GPT uses GELU as the activation function.
+
+During training, the model receives a block of text.
+The input is a sequence of tokens.
+The target is the same sequence shifted by one position.
+The model predicts logits for every position.
+Cross entropy loss compares the logits with the correct next tokens.
+The optimizer updates the model parameters to reduce the loss.
+
+When training begins, the model produces random text.
+After more training steps, the model learns character patterns.
+With a small dataset, the model often memorizes the training text.
+This is called overfitting.
+Overfitting happens when the training loss becomes very low but the validation loss becomes high.
+
+A larger dataset helps the model generalize better.
+More diverse text teaches the model more patterns.
+A larger model can learn more complex relationships.
+However, larger models need more memory and more training time.
+
+Text generation happens one token at a time.
+First, the user gives a prompt.
+The model predicts the next token.
+That token is added to the sequence.
+Then the model predicts the next token again.
+This loop continues until the requested number of tokens is generated.
+
+Temperature controls randomness during generation.
+A low temperature makes the model more predictable.
+A high temperature makes the model more creative but less stable.
+Top-k sampling keeps only the most likely tokens.
+This can make generated text cleaner.
+
+This project implements a small educational version of GPT-2.
+It is not the full OpenAI GPT-2 model.
+Instead, it shows the core ideas in a simple PyTorch implementation.
+The code includes token embeddings, positional embeddings, masked self-attention, transformer blocks, cross entropy loss, and text generation.
+
+The purpose of this project is to understand how GPT-style models work.
+By training on a small text file, we can observe the learning process.
+At first, the output looks random.
+Later, the model starts copying words and sentence structures from the dataset.
+This shows that the model is learning statistical patterns from text.
+
+GPT models are powerful because they scale well.
+The same basic architecture can be trained on much larger datasets.
+With enough data, compute, and model capacity, transformer language models can generate fluent text.
+This small implementation is a starting point for understanding that larger system.
